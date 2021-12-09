@@ -12,6 +12,13 @@ const users = [
 router.get("/", function (req, res, next) {
   res.send("welcome to backend server");
 });
+/**
+API Rest Login
+Descripción: Verifica usuario y contraseña con respecto al JSON.
+Ruta: /Login
+Entrada: usuario, password
+Método: POST
+Entrega: Status/message */
 
 router.post("/Login", function (req, res) {
   let result = users.find((user) => user.nombre == req.body.nombre);
