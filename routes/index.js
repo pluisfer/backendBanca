@@ -13,7 +13,7 @@ router.get("/", function (req, res, next) {
   res.send("welcome to backend server");
 });
 
-router.post("/login", function (req, res) {
+router.post("/Login", function (req, res) {
   let result = users.find((user) => user.nombre == req.body.nombre);
   if (result) {
     if (result.password == req.body.password) {
