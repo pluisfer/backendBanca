@@ -1,4 +1,11 @@
-export const welcome = (req, res, next) => {
+const users = [
+  {
+    nombre: "Luis",
+    password: "password",
+  },
+];
+
+const welcome = (req, res, next) => {
   res.send("welcome to backend server");
 };
 
@@ -9,8 +16,7 @@ Ruta: /Login
 Entrada: usuario, password
 Método: POST
 Entrega: Status/message */
-
-export const login = (req, res) => {
+const login = (req, res) => {
   let result = users.find((user) => user.nombre == req.body.nombre);
   if (result) {
     if (result.password == req.body.password) {
@@ -29,3 +35,5 @@ export const login = (req, res) => {
     });
   }
 };
+
+exports = { welcome, login };

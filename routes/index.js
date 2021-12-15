@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-import { welcome, login } from "../controllers/task.controllers";
+const { welcome, login } = require("../controllers/task.controllers");
 
 const users = [
   {
