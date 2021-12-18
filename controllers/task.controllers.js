@@ -36,4 +36,54 @@ Entrega: Status/message */
       });
     }
   },
+
+  ClienteRegistrar: function (req, res) {
+    const data = req.body;
+      const clientes = new userModel(data);
+      clientes.save(function (error) {
+          if (error) {
+              res.send({ estado: "error", msg: "ERROR: cliente no guardado" });
+              return false;
+          }
+  
+          res.send({ estado: "ok", msg: "cliente guardado" });
+      })
+  },
+
+
+  DatosPersonalesGuardar: function (req, res) {
+    const data = req.body;
+    const DatosClientes = new datosPersonalesModel(data);
+    DatosClientes.save(function (error) {
+        if (error) {
+            res.send({ estado: "error", msg: "ERROR: datos no guardados" });
+            return false
+        }
+        res.send({ estado: "ok", msg: "datos almacenados correctamente" })
+
+    })
+
+
+
+  },
+
+  QuejasReclamosEnviar: function (req, res) {
+    const data = req.body;
+    const QuejasReclamos = new quejasReclamosModel(data);
+    QuejasReclamos.save(function (error) {
+        if (error) {
+            res.send({ estado: "error", msg: "ERROR: queja no enviada" });
+            return false
+        }
+        res.send({ estado: "ok", msg: "solicitud enviada correctamente" })
+
+    })
+
+
+  }
+
+
 };
+
+
+
