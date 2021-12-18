@@ -76,12 +76,23 @@ Entrega: estado/msg/url/token */
     cuenta.save(function (error) {
       if (error) {
         return res.status(500).send({ estado: "error", msg: "ERROR: Cuenta NO creada" });
+        console.log(error)
       }
       return res.status(200).send({ estado: "ok", msg: "Su cuenta ha sido creada!" });
     });
   },
 
-  ClienteRegistrar: function (req, res) {
+  /**
+   * API Rest Registro Clientes
+    Desacripcion: registra a un usuario que haya solicitado la creacion de su cuenta, esto lo aran el administrado.
+    Ruta: /Registrar
+    Entrada: usuario, contraseña, confirmar contraseña, tipo de usuario
+    metodo: POST
+    Entrega: json{estado: "ok", msg: "usuario guardado"}
+    error: json{estado: "error", msg: "ERROR usuario no guardado"}
+   */
+
+  UsuarioRegistrar: function (req, res) {
     const data = req.body;
     const clientes = new userModel(data);
     clientes.save(function (error) {
@@ -94,7 +105,14 @@ Entrega: estado/msg/url/token */
     })
   },
 
-
+  /**
+   * API Reste registrar datos personales
+   * Descripcion: el usuario al logearse sera redireccionado a llenar los datos personales, solo es una sola ves.
+   * Ruta: /DatosPersonales/guardar
+   * Metodo: POST
+   * Entrega: json{ estado: "ok", msg: "datos almacenados correctamente" }
+   * EARROR: json{ estado: "error", msg: "ERROR: datos no guardados" }
+   */
   DatosPersonalesGuardar: function (req, res) {
     const data = req.body;
     const DatosClientes = new datosPersonalesModel(data);
@@ -167,6 +185,30 @@ Entrega: estado/msg/url/token */
         }
       }
     })
+  },
+
+
+
+  /**
+   * API Rest listado de productos/fidicuentas creadas por el usuario
+   * Descripcion: se enlistara todos los productos/fiducuentas que el usuario vaya creando
+   * Ruta: /Usuario/productos/Lista
+   * metodo: POST
+   * Respuesta: json{ estado: "ok", msg: "Producto Encontrado", data: prod }
+   */
+  UsuarioProductosList: function (req, res) {
+    crearCuentaModel.find({}, function (error, nCuenta) {
+      if (error) {
+        return res.send({ estado: "error", msg: "ERROR al buscar Producto" })
+      } else {
+        if (nCuenta !== null) {
+          res.send({ estado: "ok", msg: "Producto Encontrado", data: nCuenta });
+        } else {
+          res.send({ estado: "error", msg: "Producto NO Encontrado" });
+        }
+      }
+    })
+
   }
 };
 
