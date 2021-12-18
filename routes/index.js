@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { welcome, login } = require("../controllers/task.controllers");
+const { welcome, login, crearCuenta, cerrarCuenta, cerrarCuentaPrevio } = require("../controllers/task.controllers");
 
 const users = [
   {
@@ -11,6 +11,9 @@ const users = [
 
 router.get("/", welcome);
 
-router.post("/Login", login);
+router.post("/login", login);
+router.post("/crearCuenta", crearCuenta);
+router.post("/cerrarCuenta", cerrarCuenta);
+router.post("/cerrarCuentaPrevio", cerrarCuentaPrevio);
 
 module.exports = router;

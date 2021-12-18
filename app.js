@@ -4,6 +4,8 @@ const cors = require("cors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -53,5 +55,8 @@ app.use(function (err, req, res, next) {
 
 //ejecucion del servidor
 app.listen(port, () => console.log(`hola mundo servidor ejecutandose en el puerto ${port}`));
+mongoose.connect(process.env.URL_DB)
+    .then(res => console.log("Conectado a BD"))
+    .catch(error => console.log(error));
 
 module.exports = app;
