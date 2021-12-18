@@ -1,5 +1,6 @@
 const { compare } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
+require("dotenv").config();
 //Modelos
 const { usuariosModel } = require("../Modelos/usuariosModel")
 const { datosPersonalesModel } = require("../Modelos/datosPersonalesModel")
