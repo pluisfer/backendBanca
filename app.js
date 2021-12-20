@@ -4,10 +4,12 @@ const cors = require("cors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-
+const port = 8080;
 const app = express();
 
 // view engine setup
@@ -50,5 +52,16 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
+//ejecucion del servidor
+//Danilo macea: DECIDI EJECUTAR EL SERVIDOR EN EL ARCHIVO APP PORQUE EN EL ARCHIVO WWW DE LA CARPETA BIN NO ME CORRIA, PERO SI A USTEDES LES FUNCIONA PUEDEN BORRAR ESTA LINEA DE CODIGO Y LISTO
+app.listen(port, () => console.log(`hola mundo servidor ejecutandose en el puerto ${port}`));
+
+
+
+
+mongoose.connect(process.env.URL_DB)
+    .then(res => console.log("Conectado a BD"))
+    .catch(error => console.log(error));
 
 module.exports = app;
