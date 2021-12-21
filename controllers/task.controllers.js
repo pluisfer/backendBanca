@@ -94,7 +94,7 @@ Entrega: estado/msg/url/token */
 
   UsuarioRegistrar: function (req, res) {
     const data = req.body;
-    const clientes = new userModel(data);
+    const clientes = new usuariosModel(data);
     clientes.save(function (error) {
       if (error) {
         res.send({ estado: "error", msg: "ERROR: cliente no guardado" });
@@ -121,7 +121,7 @@ Entrega: estado/msg/url/token */
         res.send({ estado: "error", msg: "ERROR: datos no guardados" });
         return false
       }
-      res.send({ estado: "ok", msg: "datos almacenados correctamente" })
+      res.send({ estado: "ok", msg: "datos almacenados correctamente", url:"/Clientes"})
 
     })
 
@@ -131,13 +131,12 @@ Entrega: estado/msg/url/token */
 
   QuejasReclamosEnviar: function (req, res) {
     const data = req.body;
-    const QuejasReclamos = new quejasReclamosModel(data);
+    const QuejasReclamos = new qyrModel(data);
     QuejasReclamos.save(function (error) {
       if (error) {
-        res.send({ estado: "error", msg: "ERROR: queja no enviada" });
-        return false
+        return res.send({ estado: "error", msg: "ERROR: queja no enviada" }); 
       }
-      res.send({ estado: "ok", msg: "solicitud enviada correctamente" })
+      return res.send({ estado: "ok", msg: "solicitud enviada correctamente" })
 
     })
 
