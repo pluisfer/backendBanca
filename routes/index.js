@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { welcome, login, crearCuenta, cerrarCuenta, cerrarCuentaPrevio } = require("../controllers/task.controllers");
+const { welcome, login, transferencias, crearCuenta, cerrarCuenta, Previo, UsuarioRegistrar, DatosPersonalesGuardar, UsuarioProductosList, QuejasReclamosEnviar } = require("../controllers/task.controllers");
 // Guards
 const { admiGuard } = require("../Guards/usuariosGuard");
 const { uiGuard } = require("../Guards/usuariosGuard");
@@ -17,11 +17,12 @@ router.get("/", welcome);
 router.post("/login", login);
 router.post("/crearCuenta", clienteGuard, crearCuenta);
 router.post("/cerrarCuenta", clienteGuard, cerrarCuenta);
-router.post("/cerrarCuentaPrevio", clienteGuard, cerrarCuentaPrevio);
-router.post("/Usuario/Registrar", UsuarioRegistrar);
-router.post("/DatosPersonales/guardar", DatosPersonalesGuardar);
-router.post("/Usuario/productos/Lista", UsuarioProductosList);
-router.post("/QuejasReclamos/enviar", QuejasReclamosEnviar);
+router.post("/Previo", clienteGuard, Previo);
+router.post("/Usuario/Registrar", admiGuard, UsuarioRegistrar);
+router.post("/DatosPersonales/guardar", clienteGuard, DatosPersonalesGuardar);
+router.post("/Usuario/productos/Lista",  clienteGuard, UsuarioProductosList);
+router.post("/QuejasReclamos/enviar", clienteGuard, QuejasReclamosEnviar);
+router.post("/Transferencias", clienteGuard, transferencias);
 
 
 module.exports = router;
