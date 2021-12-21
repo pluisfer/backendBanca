@@ -7,10 +7,6 @@ const { datosPersonalesModel } = require("../Modelos/datosPersonalesModel")
 const { crearCuentaModel } = require("../Modelos/crearCuentaModel")
 const { qyrModel } = require("../Modelos/qyrModel")
 const { transferenciasModel } = require("../Modelos/transferenciasModel")
-// Guards
-const { admiGuard } = require("../Guards/usuariosGuard");
-const { uiGuard } = require("../Guards/usuariosGuard");
-const { clienteGuard } = require("../Guards/usuariosGuard");
 
 const users = [
   {
@@ -49,9 +45,9 @@ Entrega: estado/msg/url/token */
         if (user.rol === "c"){
             const rdp = await datosPersonalesModel.findOne({ usuario });
             if (!rdp) {
-                return res.status(200).send({ estado: "ok", msg: "Logueado", url:"/RegistroDatosPersonales", token });
+                return res.status(200).send({ estado: "ok", msg: "Logueado", url:"/RegistroDatosPersonales", token, usuario });
            } else {
-                return res.status(200).send({ estado: "ok", msg: "Logueado", url:"/BancaVirtual", token });
+                return res.status(200).send({ estado: "ok", msg: "Logueado", url:"/BancaVirtual", token, usuario });
             }
         } else if (user.rol === "ui"){
             return res.status(200).send({ estado: "ok", msg: "Logueado", url:"/UsuarioInterno", token });
@@ -110,7 +106,7 @@ Entrega: estado/msg/url/token */
  */
   cerrarCuentaPrevio: function (req, res) {
     const user = req.body;
-    crearCuentaModel.find({ user }, function (error, cuenta) {
+    crearCuentaModel.find({ usuario : user.usuario }, function (error, cuenta) {
         if (error) {
             return res.send({ estado: "error", msg: "ERROR al buscar cuenta" })
         } else {

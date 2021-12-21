@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { welcome, login, crearCuenta, cerrarCuenta, cerrarCuentaPrevio } = require("../controllers/task.controllers");
+// Guards
+const { admiGuard } = require("../Guards/usuariosGuard");
+const { uiGuard } = require("../Guards/usuariosGuard");
+const { clienteGuard } = require("../Guards/usuariosGuard");
 
 const users = [
   {
@@ -12,8 +16,8 @@ const users = [
 router.get("/", welcome);
 
 router.post("/login", login);
-router.post("/crearCuenta", crearCuenta);
-router.post("/cerrarCuenta", cerrarCuenta);
-router.post("/cerrarCuentaPrevio", cerrarCuentaPrevio);
+router.post("/crearCuenta", clienteGuard, crearCuenta);
+router.post("/cerrarCuenta", clienteGuard, cerrarCuenta);
+router.post("/cerrarCuentaPrevio", clienteGuard, cerrarCuentaPrevio);
 
 module.exports = router;
